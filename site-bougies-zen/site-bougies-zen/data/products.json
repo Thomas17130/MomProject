@@ -1,0 +1,74 @@
+[
+  {
+    "id": "bougie-noel-01",
+    "name": "Veillée d'hiver",
+    "ref": "LA-NO-001",
+    "category": "noel",
+    "price": 24,
+    "description": "Une bougie aux notes boisées et épicées, pensée pour les longues soirées d'hiver et les fêtes de fin d'année. Coulée à la main en petite série.",
+    "image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-bapteme-01",
+    "name": "Nuage de coton",
+    "ref": "LA-BA-001",
+    "category": "bapteme",
+    "price": 18,
+    "description": "Un cadeau délicat aux notes douces et poudrées, adapté aux célébrations de baptême. Personnalisation possible sur demande.",
+    "image": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-mariage-01",
+    "name": "Promesse fleurie",
+    "ref": "LA-MA-001",
+    "category": "mariage",
+    "price": 32,
+    "description": "Une création florale et lumineuse pour célébrer un mariage. Disponible en cadeau d'invités ou en pièce décorative.",
+    "image": "https://images.unsplash.com/photo-1602910344008-22f323cc1817?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-offrir-01",
+    "name": "Petite attention",
+    "ref": "LA-PO-001",
+    "category": "plaisir-offrir",
+    "price": 16,
+    "description": "Une bougie artisanale facile à offrir, aux notes végétales et fraîches. Présentée dans son écrin prêt à offrir.",
+    "image": "https://images.unsplash.com/photo-1602523961358-f9f03dd557db?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-anniversaire-01",
+    "name": "Jour de fête",
+    "ref": "LA-AN-001",
+    "category": "anniversaire",
+    "price": 22,
+    "description": "Une senteur ambrée et joyeuse pour marquer une date spéciale. Fabriquée à la main en quantité limitée.",
+    "image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-deco-01",
+    "name": "Forme douce",
+    "ref": "LA-DE-001",
+    "category": "deco",
+    "price": 20,
+    "description": "Une bougie décorative aux lignes simples, conçue pour apporter une touche artisanale à votre intérieur.",
+    "image": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-bien-etre-01",
+    "name": "Pause végétale",
+    "ref": "LA-BE-001",
+    "category": "bien-etre",
+    "price": 26,
+    "description": "Un accord végétal apaisant imaginé pour accompagner les moments de détente et les rituels du quotidien.",
+    "image": "https://images.unsplash.com/photo-1602523961358-f9f03dd557db?auto=format&fit=crop&w=1100&q=85"
+  },
+  {
+    "id": "bougie-composition-01",
+    "name": "Jardin composé",
+    "ref": "LA-CO-001",
+    "category": "composition",
+    "price": 38,
+    "description": "Une composition artisanale associant bougie et éléments décoratifs choisis avec soin. Chaque pièce est unique.",
+    "image": "https://images.unsplash.com/photo-1602910344008-22f323cc1817?auto=format&fit=crop&w=1100&q=85"
+  }
+]

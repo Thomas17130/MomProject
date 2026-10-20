@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#edf0e5">
+  <meta name="description" content="Parcourez les créations artisanales Lueur d'Âme et filtrez par occasion ou univers.">
+  <title>Catalogue — Lueur d'Âme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="Lueur d'Âme, accueil">Lueur d'Âme<span>Atelier de bougies</span></a>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navigation">☰</button>
+    <nav class="nav" id="navigation" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html" aria-current="page">Catalogue</a>
+      <a class="nav-contact" href="index.html#contact">Me contacter <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main class="site-page">
+    <section class="page-heading">
+      <p class="eyebrow">L'atelier, au fil des envies</p>
+      <h1>Le catalogue</h1>
+      <p>Des créations façonnées à la main pour les beaux moments, petits ou grands.</p>
+    </section>
+    <section class="catalogue-section" aria-label="Produits">
+      <div class="catalogue-toolbar">
+        <label class="search-field" for="catalogueSearch">Rechercher
+          <input id="catalogueSearch" type="search" placeholder="Nom ou référence">
+        </label>
+        <label class="filter-field" for="categoryFilter">Filtrer par occasion
+          <select id="categoryFilter">
+            <option value="all">Toutes les catégories</option>
+            <option value="noel">Noël</option>
+            <option value="bapteme">Baptême</option>
+            <option value="mariage">Mariage</option>
+            <option value="plaisir-offrir">Plaisir d'offrir</option>
+            <option value="anniversaire">Anniversaire</option>
+            <option value="deco">Déco</option>
+            <option value="bien-etre">Bien-être</option>
+            <option value="composition">Composition</option>
+          </select>
+        </label>
+      </div>
+      <p class="catalogue-count" id="catalogueCount" aria-live="polite"></p>
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+      <p class="empty-state" id="emptyState" hidden>Aucune création ne correspond à votre recherche.</p>
+      <p class="form-message" id="catalogueError" role="status"></p>
+    </section>
+  </main>
+  <footer class="footer">
+    <a href="index.html" class="logo">Lueur d'Âme<span>Atelier de bougies</span></a>
+    <p>Des créations façonnées à la main, avec cœur.</p>
+    <a href="index.html#contact">Écrire à l'atelier ↗</a>
+    <small>© 2026 Lueur d'Âme</small>
+  </footer>
+  <script src="script.js"></script>
+  <script src="catalogue.js"></script>
+</body>
+</html>

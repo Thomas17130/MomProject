@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#edf0e5">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administration — Lueur d'Âme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="Lueur d'Âme, accueil">Lueur d'Âme<span>Administration</span></a>
+    <nav class="nav admin-nav" aria-label="Navigation administration">
+      <a href="catalogue.html">Voir le catalogue</a>
+      <button class="text-button" id="logoutButton" type="button" hidden>Déconnexion</button>
+    </nav>
+  </header>
+  <main class="site-page admin-page">
+    <section class="page-heading admin-heading">
+      <p class="eyebrow">Espace privé</p>
+      <h1>Gérer le catalogue</h1>
+      <p>Ajoutez, modifiez ou retirez les créations présentées sur le site.</p>
+    </section>
+    <section class="admin-login" id="loginPanel">
+      <form id="loginForm" class="admin-login-form">
+        <h2>Connexion</h2>
+        <label for="adminPassword">Mot de passe administrateur</label>
+        <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
+        <button class="btn btn-dark" type="submit">Se connecter</button>
+        <p class="form-message" id="loginMessage" role="status"></p>
+      </form>
+    </section>
+    <section class="admin-workspace" id="adminWorkspace" hidden>
+      <div class="admin-toolbar">
+        <h2>Produits</h2>
+        <p id="adminProductCount" class="catalogue-count"></p>
+      </div>
+      <div class="admin-columns">
+        <form class="admin-product-form" id="productForm">
+          <h3 id="productFormTitle">Nouvelle création</h3>
+          <input type="hidden" id="productId">
+          <label for="productName">Nom</label>
+          <input id="productName" name="name" maxlength="120" required>
+          <label for="productRef">Référence</label>
+          <input id="productRef" name="ref" maxlength="40" required>
+          <label for="productCategory">Catégorie</label>
+          <select id="productCategory" name="category" required>
+            <option value="noel">Noël</option>
+            <option value="bapteme">Baptême</option>
+            <option value="mariage">Mariage</option>
+            <option value="plaisir-offrir">Plaisir d'offrir</option>
+            <option value="anniversaire">Anniversaire</option>
+            <option value="deco">Déco</option>
+            <option value="bien-etre">Bien-être</option>
+            <option value="composition">Composition</option>
+          </select>
+          <label for="productPrice">Prix (€)</label>
+          <input id="productPrice" name="price" type="number" min="0" max="100000" step="0.01" required>
+          <label for="productImage">Adresse de l'image</label>
+          <input id="productImage" name="image" type="url" placeholder="https://…" required>
+          <label for="productDescription">Description</label>
+          <textarea id="productDescription" name="description" rows="5" maxlength="5000" required></textarea>
+          <div class="form-actions">
+            <button class="btn btn-dark" id="saveProductButton" type="submit">Ajouter le produit</button>
+            <button class="text-button" id="cancelEditButton" type="button" hidden>Annuler</button>
+          </div>
+          <p class="form-message" id="productFormMessage" role="status"></p>
+        </form>
+        <div class="admin-product-list-wrap">
+          <div class="admin-product-list" id="adminProductList" aria-live="polite"></div>
+          <p class="form-message" id="adminListMessage" role="status"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>
