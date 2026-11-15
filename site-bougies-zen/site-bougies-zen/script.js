@@ -24,31 +24,38 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
 
 const carousel = document.querySelector('.carousel-viewport');
-const track = document.querySelector('.carousel-track');
-const previousButton = document.querySelector('[data-direction="previous"]');
-const nextButton = document.querySelector('[data-direction="next"]');
-const count = document.querySelector('.carousel-count');
-const cards = [...document.querySelectorAll('.creation')];
+const cards = [...(carousel?.querySelectorAll('.creation') || [])];
 
-if (carousel && track && previousButton && nextButton && count && cards.length > 1) {
-  function updateCarousel() {
-    const cardStep = cards[1].offsetLeft - cards[0].offsetLeft;
-    const activeIndex = Math.min(cards.length, Math.round(carousel.scrollLeft / cardStep) + 1);
-    previousButton.disabled = carousel.scrollLeft < 2;
-    nextButton.disabled = carousel.scrollLeft + carousel.clientWidth >= track.scrollWidth - 2;
-    count.textContent = `${String(activeIndex).padStart(2, '0')} — ${String(cards.length).padStart(2, '0')}`;
+if (carousel && cards.length > 1) {
+  let activeIndex = cards.findIndex(card => card.classList.contains('is-active'));
+  if (activeIndex < 0) activeIndex = 0;
+  const controls = document.querySelectorAll('.carousel-control');
+  const autoplayEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let autoplayTimer;
+
+  function showCard(index) {
+    activeIndex = (index + cards.length) % cards.length;
+    cards.forEach((card, cardIndex) => {
+      const isActive = cardIndex === activeIndex;
+      card.classList.toggle('is-active', isActive);
+      card.setAttribute('aria-hidden', String(!isActive));
+    });
   }
 
-  function moveCarousel(direction) {
-    const cardStep = cards[1].offsetLeft - cards[0].offsetLeft;
-    carousel.scrollBy({ left: direction * cardStep, behavior: 'smooth' });
+  function startAutoplay() {
+    window.clearInterval(autoplayTimer);
+    if (autoplayEnabled) {
+      autoplayTimer = window.setInterval(() => showCard(activeIndex + 1), 5000);
+    }
   }
 
-  previousButton.addEventListener('click', () => moveCarousel(-1));
-  nextButton.addEventListener('click', () => moveCarousel(1));
-  carousel.addEventListener('scroll', updateCarousel, { passive: true });
-  window.addEventListener('resize', updateCarousel);
-  updateCarousel();
+  showCard(activeIndex);
+  controls.forEach(control => control.addEventListener('click', () => {
+    showCard(activeIndex + Number(control.dataset.carouselDirection));
+    startAutoplay();
+  }));
+
+  startAutoplay();
 }
 
 const contactForm = document.getElementById('contactForm');

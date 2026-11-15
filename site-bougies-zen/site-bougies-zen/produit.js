@@ -27,7 +27,7 @@ if (!productId) {
       return response.json();
     })
     .then(product => {
-      document.title = `${product.name} — Lueur d'Âme`;
+      document.title = `${product.name} — ManouCréa`;
       const image = document.createElement('img');
       image.className = 'product-detail-image';
       image.src = product.image;
