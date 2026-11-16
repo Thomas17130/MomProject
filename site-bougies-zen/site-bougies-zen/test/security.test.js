@@ -193,7 +193,28 @@ test('request validation rejects oversized and malformed JSON and unconfigured e
   const noSmtp = await fetch(`${baseUrl}/api/contact`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...forwardedOriginHeaders() },
-    body: JSON.stringify({ name: 'Test', email: 'test@example.com', message: 'Test' })
+    body: JSON.stringify({
+      firstName: 'Test',
+      lastName: 'Visiteur',
+      email: 'test@hotmail.fr',
+      phone: '+33 6 12 34 56 78',
+      message: 'Test',
+      receiveCopy: true
+    })
   });
   assert.equal(noSmtp.status, 503);
+
+  const invalidPhone = await fetch(`${baseUrl}/api/contact`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...forwardedOriginHeaders() },
+    body: JSON.stringify({
+      firstName: 'Test',
+      lastName: 'Visiteur',
+      email: 'test@hotmail.fr',
+      phone: 'tel:123',
+      message: 'Test',
+      receiveCopy: false
+    })
+  });
+  assert.equal(invalidPhone.status, 400);
 });

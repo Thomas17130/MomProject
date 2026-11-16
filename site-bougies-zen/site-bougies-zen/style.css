@@ -843,6 +843,30 @@ textarea:focus-visible {
   resize: vertical;
 }
 
+.contact-form .contact-copy-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.contact-form .contact-copy-option input {
+  width: auto;
+  flex: none;
+  margin: 2px 0 0;
+  accent-color: var(--forest);
+}
+
+.contact-privacy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
 .btn-dark {
   margin-top: 18px;
   background: var(--forest);

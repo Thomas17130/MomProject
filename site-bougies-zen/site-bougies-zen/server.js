@@ -261,12 +261,19 @@ app.delete('/api/admin/products/:id', sameOrigin, requireAdmin, async (req, res,
 
 app.post('/api/contact', sameOrigin, contactLimiter, async (req, res) => {
   const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : {};
-  const name = String(body.name || '').trim();
-  const email = String(body.email || '').trim();
-  const message = String(body.message || '').trim();
+  const firstName = typeof body.firstName === 'string' ? body.firstName.trim() : '';
+  const lastName = typeof body.lastName === 'string' ? body.lastName.trim() : '';
+  const email = typeof body.email === 'string' ? body.email.trim() : '';
+  const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
+  const message = typeof body.message === 'string' ? body.message.trim() : '';
+  const receiveCopy = body.receiveCopy === true;
   if (
-    !name || name.length > 120 || /[\u0000-\u001f\u007f]/.test(name) ||
-    !email || email.length > 254 || !message || message.length > 5000
+    !firstName || firstName.length > 60 || /[\u0000-\u001f\u007f]/.test(firstName) ||
+    !lastName || lastName.length > 60 || /[\u0000-\u001f\u007f]/.test(lastName) ||
+    !email || email.length > 254 ||
+    !phone || phone.length > 25 || !/^[0-9+(). -]+$/.test(phone) ||
+    (phone.match(/\d/g) || []).length < 7 || (phone.match(/\d/g) || []).length > 15 ||
+    !message || message.length > 5000 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(message)
   ) {
     return res.status(400).json({ error: 'Vérifiez les champs du formulaire.' });
   }
@@ -292,11 +299,17 @@ app.post('/api/contact', sameOrigin, contactLimiter, async (req, res) => {
     await transporter.sendMail({
       from: process.env.SMTP_FROM,
       to: process.env.CONTACT_TO,
-      replyTo: { name, address: email },
+      ...(receiveCopy ? { bcc: email } : {}),
+      replyTo: { name: `${firstName} ${lastName}`, address: email },
       subject: 'Nouveau message reçu via le site ManouCréa',
-      text: `Nom : ${name}\nE-mail : ${email}\n\n${message}`
+      text: `Prénom : ${firstName}\nNom : ${lastName}\nE-mail : ${email}\nTéléphone : ${phone}\n\nMessage :\n${message}`
     });
-    res.json({ sent: true, message: 'Votre message a bien été envoyé.' });
+    res.json({
+      sent: true,
+      message: receiveCopy
+        ? 'Votre message a bien été envoyé. Une copie vous a été adressée.'
+        : 'Votre message a bien été envoyé.'
+    });
   } catch (error) {
     console.error('Échec de l’envoi SMTP :', error.message);
     res.status(502).json({ error: 'Le message n’a pas pu être envoyé. Réessayez plus tard.' });

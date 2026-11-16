@@ -14,7 +14,7 @@ La page d'administration est accessible directement à `http://localhost:3000/ad
 
 ## Configuration e-mail
 
-Le formulaire envoie les messages depuis le serveur avec SMTP et utilise l'adresse saisie par le visiteur comme adresse de réponse. Renseignez `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` et `CONTACT_TO` dans `.env`. Ces paramètres sont fournis par votre hébergeur e-mail. Sans ces valeurs, le site signale que l'envoi n'est pas configuré.
+Le formulaire demande l'adresse e-mail, le prénom, le nom, le téléphone et le message. Il envoie ces coordonnées depuis le serveur avec SMTP et utilise l'adresse saisie par le visiteur comme adresse de réponse. Si le visiteur coche la case correspondante, il reçoit également une copie cachée du message. Renseignez `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` et `CONTACT_TO` dans `.env`. Ces paramètres sont fournis par votre hébergeur e-mail. Sans ces valeurs, le site signale que l'envoi n'est pas configuré.
 
 Ne publiez jamais `.env` et ne partagez pas le mot de passe SMTP. En production, configurez ces variables dans l'espace sécurisé de votre hébergeur et servez le site en HTTPS.
 

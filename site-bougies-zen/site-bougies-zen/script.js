@@ -63,6 +63,9 @@ if (contactForm) contactForm.addEventListener('submit', async event => {
   event.preventDefault();
   const submitButton = contactForm.querySelector('button[type="submit"]');
   const status = document.getElementById('formMessage');
+  const formData = new FormData(contactForm);
+  const values = Object.fromEntries(formData);
+  values.receiveCopy = formData.has('receiveCopy');
   submitButton.disabled = true;
   status.textContent = 'Envoi de votre message…';
 
@@ -70,14 +73,32 @@ if (contactForm) contactForm.addEventListener('submit', async event => {
     const response = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+      body: JSON.stringify(values)
     });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || 'Le message n’a pas pu être envoyé.');
+    if (response.status === 405) {
+      throw new Error('Le serveur d’envoi du site est indisponible. Lancez le site avec « npm start » plutôt qu’avec Live Server.');
+    }
+    const responseText = await response.text();
+    let result = {};
+    if (responseText) {
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        throw new Error(`Le serveur du formulaire a renvoyé une réponse invalide (HTTP ${response.status}). Vérifiez que le site est lancé avec son serveur Node.js.`);
+      }
+    }
+    if (!response.ok) {
+      throw new Error(result.error || `Le serveur du formulaire a répondu avec une erreur (HTTP ${response.status}).`);
+    }
+    if (!result.sent || !result.message) {
+      throw new Error('Le serveur du formulaire n’a pas confirmé l’envoi. Vérifiez sa configuration e-mail.');
+    }
     status.textContent = result.message;
     contactForm.reset();
   } catch (error) {
-    status.textContent = error.message || 'Une erreur est survenue. Réessayez plus tard.';
+    status.textContent = error instanceof TypeError
+      ? 'Impossible de joindre le serveur d’envoi. Vérifiez que le site est lancé avec « npm start ».'
+      : error.message || 'Une erreur est survenue. Réessayez plus tard.';
   } finally {
     submitButton.disabled = false;
   }
